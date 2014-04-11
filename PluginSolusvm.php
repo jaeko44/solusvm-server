@@ -14,8 +14,12 @@ require_once 'modules/admin/models/ServerPlugin.php';
 
 Class PluginSolusvm extends ServerPlugin {
 
-    public $usesPackageName = true;
-    public $canTestConnect = true;
+    public $features = array(
+        'packageName' => true,
+        'testConnection' => false,
+        'showNameservers' => false
+    );
+
     var $host;
     var $id;
     var $key;
