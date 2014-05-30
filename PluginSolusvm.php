@@ -461,6 +461,8 @@ Class PluginSolusvm extends ServerPlugin {
 
         $params = array();
         $params['action'] = 'node-idlist';
+        // we send openvz, just as a test, to see if we can connect or not.
+        $params['type'] = 'openvz';
         $response = $this->call($params, $args);
 
         /*if ( strlen(trim($version)) == 0 ) {
