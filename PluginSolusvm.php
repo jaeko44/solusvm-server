@@ -6,8 +6,6 @@ require_once 'modules/admin/models/ServerPlugin.php';
 
 /**
 * SolusVM Server Plugin
-* @package Plugins
-* @version 1.0
 * @Author Matt Grandy
 * @email matt@clientexec.com
 */
@@ -346,13 +344,6 @@ Class PluginSolusvm extends ServerPlugin {
 
         $username = 'ce' . $args['customer']['id'];
 
-        // Check if plan exists.
-        // This doesn't work...
-        /*if (!$this->checkPlan($args['package']['name_on_server'])) {
-            $error = "The package '{$args['package']['name_on_server']}' was not found on the server.";
-            $errors[] = $this->email_error('Creation', $error, $args);
-        }*/
-
         // create the client
         $params['action'] = 'client-create';
         $params['username'] = $username;
@@ -464,16 +455,6 @@ Class PluginSolusvm extends ServerPlugin {
         // we send openvz, just as a test, to see if we can connect or not.
         $params['type'] = 'openvz';
         $response = $this->call($params, $args);
-
-        /*if ( strlen(trim($version)) == 0 ) {
-            throw new CE_Exception("Connection to server failed.");
-        }*/
     }
 
-    /*
-    function checkPlan($plan) {
-        $params['action'] = 'listplans';
-        $parmas['type'] = 'openvz';
-        $result = $this->call($params, $args);
-    }*/
 }
