@@ -16,7 +16,7 @@ Class PluginSolusvm extends ServerPlugin {
 
     public $features = array(
         'packageName' => true,
-        'testConnection' => false,
+        'testConnection' => true,
         'showNameservers' => false
     );
 
@@ -451,6 +451,21 @@ Class PluginSolusvm extends ServerPlugin {
         $params['vserverid'] = $id;
 
         return $this->call($params, $args);
+    }
+
+
+    function testConnection($args)
+    {
+        CE_Lib::log(4, 'Testing connection to SolusVM server');
+        $this->setup($args);
+
+        $params = array();
+        $params['action'] = 'node-idlist';
+        $response = $this->call($params, $args);
+
+        /*if ( strlen(trim($version)) == 0 ) {
+            throw new CE_Exception("Connection to server failed.");
+        }*/
     }
 
     /*
