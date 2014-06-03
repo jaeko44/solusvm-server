@@ -62,98 +62,98 @@ Class PluginSolusvm extends ServerPlugin {
     function getVariables() {
 
         $variables = array (
-            /*T*/"Name"/*/T*/ => array (
+            lang("Name") => array (
                 "type"=>"hidden",
                 "description"=>"Used by CE to show plugin - must match how you call the action function names",
                 "value"=>"Solusvm"
             ),
-            /*T*/"Description"/*/T*/ => array (
+            lang("Description") => array (
                 "type"=>"hidden",
-                "description"=>/*T*/"Description viewable by admin in server settings"/*/T*/,
-                "value"=>/*T*/"SolusVM control panel integration"/*/T*/
+                "description"=>lang("Description viewable by admin in server settings"),
+                "value"=>lang("SolusVM control panel integration")
             ),
-            /*T*/"ID"/*/T*/ => array (
+            lang("ID") => array (
                 "type"=>"text",
-                "description"=>/*T*/"API ID"/*/T*/,
+                "description"=>lang("API ID"),
                 "value"=>"",
                 "encryptable"=>true
             ),
-            /*T*/"Key"/*/T*/ => array (
+            lang("Key") => array (
                 "type"=>"text",
-                "description"=>/*T*/"API Key"/*/T*/,
+                "description"=>lang("API Key"),
                 "value"=>"",
                 "encryptable"=>true
             ),
-            /*T*/"Port"/*/T*/ => array (
+            lang("Port") => array (
                 "type"=>"text",
-                "description"=>/*T*/"API Port"/*/T*/,
+                "description"=>lang("API Port"),
                 "value"=>"5656"
             ),
-            /*T*/"VM Username Custom Field"/*/T*/ => array(
+            lang("VM Username Custom Field") => array(
                 "type"        => "text",
-                "description" => /*T*/"Enter the name of the package custom field that will hold the SolusVM Username. This field should not be included in sign up."/*/T*/,
+                "description" => lang("Enter the name of the package custom field that will hold the SolusVM Username. This field should not be included in sign up."),
                 "value"       => ""
             ),
-            /*T*/"VM Password Custom Field"/*/T*/ => array(
+            lang("VM Password Custom Field") => array(
                 "type"        => "text",
-                "description" => /*T*/"Enter the name of the package custom field that will hold the SolusVM Password."/*/T*/,
+                "description" => lang("Enter the name of the package custom field that will hold the SolusVM Password."),
                 "value"       => ""
             ),
-            /*T*/"VM Hostname Custom Field"/*/T*/ => array(
+            lang("VM Hostname Custom Field") => array(
                 "type"        => "text",
-                "description" => /*T*/"Enter the name of the package custom field that will hold the VM hostname for SolusVM."/*/T*/,
+                "description" => lang("Enter the name of the package custom field that will hold the VM hostname for SolusVM."),
                 "value"       => ""
             ),
-            /*T*/"VM Operating System Custom Field"/*/T*/ => array(
+            lang("VM Operating System Custom Field") => array(
                 "type"        => "text",
-                "description" => /*T*/"Enter the name of the package custom field that will hold the VM Operating System for SolusVM."/*/T*/,
+                "description" => lang("Enter the name of the package custom field that will hold the VM Operating System for SolusVM."),
                 "value"       => ""
             ),
-            /*T*/"Failure E-mail"/*/T*/ => array (
+            lang("Failure E-mail") => array (
                 "type"=>"text",
-                "description"=>/*T*/"E-mail address Virualmin error messages will be sent to"/*/T*/,
+                "description"=>lang("E-mail address Virualmin error messages will be sent to"),
                 "value"=>""
             ),
-            /*T*/"Actions"/*/T*/ => array (
+            lang("Actions") => array (
                 "type"=>"hidden",
-                "description"=>/*T*/"Current actions that are active for this plugin per server"/*/T*/,
+                "description"=>lang("Current actions that are active for this plugin per server"),
                 "value"=>"Create,Delete,Suspend,UnSuspend,Reboot,Boot,Shutdown,TUNTAP"
             ),
-            /*T*/"reseller"/*/T*/ => array (
+            lang("reseller") => array (
                 "type"=>"hidden",
-                "description"=>/*T*/"Whether this server plugin can set reseller accounts"/*/T*/,
+                "description"=>lang("Whether this server plugin can set reseller accounts"),
                 "value"=>"0",
             ),
-            /*T*/"package_addons"/*/T*/ => array (
+            lang("package_addons") => array (
                 "type"=>"hidden",
-                "description"=>/*T*/"Supported signup addons variables"/*/T*/,
+                "description"=>lang("Supported signup addons variables"),
                 "value"=>"",
             ),
-            /*T*/'package_vars'/*/T*/  => array(
+            lang('package_vars')  => array(
                 'type'            => 'hidden',
-                'description'     => /*T*/'Whether package settings are set'/*/T*/,
+                'description'     => lang('Whether package settings are set'),
                 'value'           => '0',
             ),
-            /*T*/'package_vars_values'/*/T*/ => array(
+            lang('package_vars_values') => array(
                 'type'            => 'hidden',
-                'description'     => /*T*/'SolusVM Settings'/*/T*/,
+                'description'     => lang('SolusVM Settings'),
                 'value'           => array(
                     'vm_type' => array(
                         'type'            => 'text',
                         'label'            => 'VM Type',
-                        'description'     => /*T*/'Enter the type of VM for this package (openvz, xen, xen hvm, or kvm).'/*/T*/,
+                        'description'     => lang('Enter the type of VM for this package (openvz, xen, xen hvm, or kvm).'),
                         'value'           => 'openvz',
                     ),
                     'node_group' => array(
                         'type'            => 'text',
                         'label'            => 'Node Group ID',
-                        'description'     => /*T*/'Enter the id of the node group this VM is being created on.'/*/T*/,
+                        'description'     => lang('Enter the id of the node group this VM is being created on.'),
                         'value'           => '',
                     ),
                     'num_of_ips' => array(
                         'type'            => 'text',
                         'label'            => 'Number of IPs',
-                        'description'     => /*T*/'Enter the number of IPs for this package.'/*/T*/,
+                        'description'     => lang('Enter the number of IPs for this package.'),
                         'value'           => '1',
                     ),
                 )
