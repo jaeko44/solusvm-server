@@ -15,7 +15,8 @@ Class PluginSolusvm extends ServerPlugin {
     public $features = array(
         'packageName' => true,
         'testConnection' => true,
-        'showNameservers' => false
+        'showNameservers' => false,
+        'directlink' => true
     );
 
     var $host;
@@ -455,6 +456,27 @@ Class PluginSolusvm extends ServerPlugin {
         // we send openvz, just as a test, to see if we can connect or not.
         $params['type'] = 'openvz';
         $response = $this->call($params, $args);
+    }
+
+    function getDirectLink($userPackage)
+    {
+        $args = $this->buildParams($userPackage);
+        $port = 5353;
+        $serverURL = $this->host .':'. $port .'/login.php';
+
+        $username = 'ce' . $args['customer']['id'];
+        $password = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
+
+        return array(
+            'link' => '<li><a href="#" onclick="$(\'#direct-link-form\').submit(); return false">' . $this->user->lang('Login to SolusVM Control Panel') . '</a></li>',
+            'form' =>
+                '<form action="' . $serverURL . '"; method="post" target="_blank" id="direct-link-form">
+                    <input type="hidden" name="act" value="login" />
+                    <input type="Submit" name="Submit" value="1" />
+                    <input type="hidden" name="username" value="' . $username . '" />
+                    <input type="hidden" name="password" value="' . $password . '" />
+                </form>'
+        );
     }
 
 }
