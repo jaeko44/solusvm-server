@@ -461,6 +461,7 @@ Class PluginSolusvm extends ServerPlugin {
     function getDirectLink($userPackage)
     {
         $args = $this->buildParams($userPackage);
+        $this->setup($args);
         $port = 5353;
         $serverURL = $this->host .':'. $port .'/login.php';
 
@@ -468,11 +469,11 @@ Class PluginSolusvm extends ServerPlugin {
         $password = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
 
         return array(
-            'link' => '<li><a href="#" onclick="$(\'#direct-link-form\').submit(); return false">' . $this->user->lang('Login to SolusVM Control Panel') . '</a></li>',
+            'link' => '<li><a href="#" onclick="$(\'#direct-link-form-solusvm\').submit(); return false">' . $this->user->lang('Login to SolusVM') . '</a></li>',
             'form' =>
-                '<form action="' . $serverURL . '"; method="post" target="_blank" id="direct-link-form">
+                '<form action="' . $serverURL . '"; method="post" target="_blank" id="direct-link-form-solusvm">
                     <input type="hidden" name="act" value="login" />
-                    <input type="Submit" name="Submit" value="1" />
+                    <input type="hidden" name="Submit" value="1" />
                     <input type="hidden" name="username" value="' . $username . '" />
                     <input type="hidden" name="password" value="' . $password . '" />
                 </form>'
