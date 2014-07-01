@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    function loginToSolusVM()
+    {
+        $.ajax("<?php echo $this->serverURL; ?>/login.php",{
+            type:"post",
+            dataType:"json",
+            data: {
+                act:"login",
+                Submit:"1",
+                username: '<?php echo $this->username; ?>',
+                password: '<?php echo $this->password; ?>'
+            },
+            success: function(json){
+                if (json) {
+                    if (json.success) {
+                        window.open('<?php echo $this->serverURL; ?>/home.php');
+
+                    }
+                }
+            }
+        });
+    }
+</script>

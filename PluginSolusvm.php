@@ -463,21 +463,15 @@ Class PluginSolusvm extends ServerPlugin {
         $args = $this->buildParams($userPackage);
         $this->setup($args);
         $port = 5353;
-        $serverURL = $this->host .':'. $port .'/login.php';
+        $this->view->serverURL = 'http://' . $this->host .':'. $port;
 
-        $username = 'ce' . $args['customer']['id'];
-        $password = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
+        $this->view->username = 'ce' . $args['customer']['id'];
+        $this->view->password = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
+        $form = $this->view->render('login.phtml');
 
         return array(
-            'link' => '<li><a href="#" onclick="$(\'#direct-link-form-solusvm\').submit(); return false">' . $this->user->lang('Login to SolusVM') . '</a></li>',
-            'form' =>
-                '<form action="' . $serverURL . '"; method="post" target="_blank" id="direct-link-form-solusvm">
-                    <input type="hidden" name="act" value="login" />
-                    <input type="hidden" name="Submit" value="1" />
-                    <input type="hidden" name="username" value="' . $username . '" />
-                    <input type="hidden" name="password" value="' . $password . '" />
-                </form>'
+            'link' => '<li><a href="#" onclick="loginToSolusVM(); return false">' . $this->user->lang('Login to SolusVM') . '</a></li>',
+            'form' => $form
         );
     }
-
 }
