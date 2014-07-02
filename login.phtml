@@ -1,6 +1,7 @@
 <script type="text/javascript">
     function loginToSolusVM()
     {
+        RichHTML.mask();
         $.ajax({
             url: 'index.php?fuse=clients&action=callpluginaction',
             success: function(xhr) {
@@ -11,11 +12,13 @@
                 } else {
                     RichHTML.error(lang('Currently unable to login to SolusVM.'));
                 }
+                RichHTML.unMask();
             },
             data: {
                 id: <?php echo $this->packageId; ?>,
                 actioncmd: 'authenticateClient'
             }
         });
+
     }
 </script>
