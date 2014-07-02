@@ -120,6 +120,11 @@ Class PluginSolusvm extends ServerPlugin {
                 "description"=>lang("Current actions that are active for this plugin per server"),
                 "value"=>"Create,Delete,Suspend,UnSuspend,Reboot,Boot,Shutdown,TUNTAP"
             ),
+            lang('Registered Actions For Customer') => array(
+                "type"=>"hidden",
+                "description"=>lang("Current actions that are active for this plugin per server for customers"),
+                "value"=>"authenticateClient"
+            ),
             lang("reseller") => array (
                 "type"=>"hidden",
                 "description"=>lang("Whether this server plugin can set reseller accounts"),
@@ -458,15 +463,39 @@ Class PluginSolusvm extends ServerPlugin {
         $response = $this->call($params, $args);
     }
 
+    function doauthenticateClient($args)
+    {
+        $userPackage = new UserPackage($args['userPackageId']);
+        $args = $this->buildParams($userPackage);
+        $this->setup($args);
+
+        $params = array();
+        $params['action'] = 'client-key-login';
+        $params['username'] = 'ce' . $args['customer']['id'];;
+        $params['vserverid'] = $userPackage->getCustomField('Server Acct Properties');
+        $params['returnurl'] = CE_Lib::getSoftwareURL() . '/index.php?fuse=clients&controller=products&view=product&id=' . $userPackage->id;
+
+        // we do not want to show the client the error message from solus, so try/catch this
+        try {
+            $result = $this->call($params, $args);
+        } catch (Exception $e ) {
+            return array();
+        }
+
+        if ($result['status'] == 'success' ) {
+            return array('hasha' => $result['hasha'], 'hashb' => $result['hashb']);
+        } else {
+            return array();
+        }
+    }
+
+
     function getDirectLink($userPackage)
     {
         $args = $this->buildParams($userPackage);
         $this->setup($args);
-        $port = 5353;
-        $this->view->serverURL = 'http://' . $this->host .':'. $port;
-
-        $this->view->username = 'ce' . $args['customer']['id'];
-        $this->view->password = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
+        $this->view->packageId = $userPackage->id;
+        $this->view->serverURL = "https://{$this->host}:{$args['server']['variables']['plugin_solusvm_Port']}/auth.php";
         $form = $this->view->render('login.phtml');
 
         return array(
