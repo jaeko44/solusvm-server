@@ -353,7 +353,7 @@ Class PluginSolusvm extends ServerPlugin {
         // create the client
         $params['action'] = 'client-create';
         $params['username'] = $username;
-        $params['password'] = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
+        $params['password'] = html_entity_decode($userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE));
         $params['email'] = $args['customer']['email'];
         $params['firstname'] = $args['customer']['first_name'];
         $params['lastname'] = $args['customer']['last_name'];
@@ -373,7 +373,7 @@ Class PluginSolusvm extends ServerPlugin {
         $params['type'] = $args['package']['variables']['vm_type'];
         $params['hostname'] = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Hostname_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
         $params['username'] = $username;
-        $params['password'] = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
+        $params['password'] = html_entity_decode($userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Password_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE));
         $params['plan'] = $args['package']['name_on_server'];
         $params['nodegroup'] = $args['package']['variables']['node_group'];
         $params['ips'] = $args['package']['variables']['num_of_ips'];
