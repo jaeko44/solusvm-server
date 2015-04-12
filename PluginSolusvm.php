@@ -156,6 +156,36 @@ Class PluginSolusvm extends ServerPlugin {
                         'description'     => lang('Enter the id of the node group this VM is being created on.'),
                         'value'           => '',
                     ),
+                    'maxdisk' => array(
+                        'type'            => 'text',
+                        'label'            => 'HDD Amount',
+                        'description'     => lang('Enter the amount of HDD.'),
+                        'value'           => '',
+                    ),
+                    'maxbw' => array(
+                        'type'            => 'text',
+                        'label'            => 'Max BW',
+                        'description'     => lang('Enter the BW.'),
+                        'value'           => '',
+                    ),
+                    'maxip' => array(
+                        'type'            => 'text',
+                        'label'            => 'IP's Avail,
+                        'description'     => lang('Enter amount of IP'),
+                        'value'           => '',
+                    ),
+                    'maxipv6' => array(
+                        'type'            => 'text',
+                        'label'            => 'IPv6 Amount',
+                        'description'     => lang('Enter the amount of IPV6 the user should have.'),
+                        'value'           => '',
+                    ),
+                    'ram_amount' => array(
+                        'type'            => 'text',
+                        'label'            => 'RAM',
+                        'description'     => lang('Enter the the amount of RAM the user is able to create.'),
+                        'value'           => '',
+                    ),
                     'num_of_ips' => array(
                         'type'            => 'text',
                         'label'            => 'Number of IPs',
@@ -379,14 +409,41 @@ Class PluginSolusvm extends ServerPlugin {
         $params['ips'] = $args['package']['variables']['num_of_ips'];
         $params['template'] = $userPackage->getCustomField($args['server']['variables']['plugin_solusvm_VM_Operating_System_Custom_Field'], CUSTOM_FIELDS_FOR_PACKAGE);
 
-        $result = $this->call($params, $args);
-        // save the virtual ID.
-        $userPackage->setCustomField('Server Acct Properties', $result['vserverid']);
-        // save the main ip address
-        $userPackage->setCustomField('IP Address', $result['mainipaddress']);
-        // update username custom field, as this is automatically generated
-        $userPackage->setCustomField($args['server']['variables']['plugin_solusvm_VM_Username_Custom_Field'], $username, CUSTOM_FIELDS_FOR_PACKAGE);
-        $userPackage->setCustomField('Shared', 0);
+
+        $username = 'ce' . $args['customer']['id'];
+        function generatePassword($length = 8) {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
+
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+        $index = rand(0, $count - 1);
+        $result .= mb_substr($chars, $index, 1);
+          }
+
+         return $result;
+        }
+        //create the reseller
+        $params['action'] = 'reseller-create';
+        $params['username'] = $username;
+        $params['password'] = $result;
+        $params['company'] = $args['customer']['organization'];
+        $params['email'] = $args['customer']['email'];
+        $params['firstname'] = $args['customer']['first_name']
+        $params['lastname'] = $args['customer']['last_name'];
+        $params['company'] = $args['customer']['organization'];
+        $params['maxvps'] = 5000
+        $params['maxusers'] = 5000
+        $params['maxmem'] = $args['package']['variables']['ram_amount'];
+        $params['maxburst'] = $args['package']['variables']['ram_amount'];
+        $params['maxdisk'] = $args['package']['variables']['maxdisk'];
+        $params['maxbw'] = $args['package']['variables']['maxbw'];
+        $params['maxipv4'] = $args['package']['variables']['maxip'];
+        $params['maxipv4'] = $args['package']['variables']['maxipv6'];
+        $params['nodegroup'] = 1, 2
+        $params['openvz'] = 1
+        $params['kvm'] = 1
+        
+
     }
 
 
