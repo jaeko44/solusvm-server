@@ -128,7 +128,7 @@ Class PluginSolusvm extends ServerPlugin {
             lang("reseller") => array (
                 "type"=>"hidden",
                 "description"=>lang("Whether this server plugin can set reseller accounts"),
-                "value"=>"0",
+                "value"=>"1",
             ),
             lang("package_addons") => array (
                 "type"=>"hidden",
@@ -144,18 +144,6 @@ Class PluginSolusvm extends ServerPlugin {
                 'type'            => 'hidden',
                 'description'     => lang('SolusVM Settings'),
                 'value'           => array(
-                    'vm_type' => array(
-                        'type'            => 'text',
-                        'label'            => 'VM Type',
-                        'description'     => lang('Enter the type of VM for this package (openvz, xen, xen hvm, or kvm).'),
-                        'value'           => 'openvz',
-                    ),
-                    'node_group' => array(
-                        'type'            => 'text',
-                        'label'            => 'Node Group ID',
-                        'description'     => lang('Enter the id of the node group this VM is being created on.'),
-                        'value'           => '',
-                    ),
                     'maxdisk' => array(
                         'type'            => 'text',
                         'label'            => 'HDD Amount',
@@ -185,13 +173,7 @@ Class PluginSolusvm extends ServerPlugin {
                         'label'            => 'RAM',
                         'description'     => lang('Enter the the amount of RAM the user is able to create.'),
                         'value'           => '',
-                    ),
-                    'num_of_ips' => array(
-                        'type'            => 'text',
-                        'label'            => 'Number of IPs',
-                        'description'     => lang('Enter the number of IPs for this package.'),
-                        'value'           => '1',
-                    ),
+                    )
                 )
             )
         );
